@@ -1,14 +1,25 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Auditorium = require('../models/Auditorium');
 const Booking = require('../models/Booking');
 const { protect, authorize } = require('../middleware/auth');
+const { auditoriums: inMemoryAuditoriums, users: inMemoryUsers } = require('../config/inMemoryDB');
 
 // GET all auditoriums
 router.get('/', protect, async (req, res) => {
   try {
-    const auditoriums = await Auditorium.find({ isActive: true }).populate('manager', 'name email');
-    res.json({ success: true, data: auditoriums });
+    if (mongoose.connection.readyState === 1) {
+      const auditoriums = await Auditorium.find({ isActive: true }).populate('manager', 'name email');
+      res.json({ success: true, data: auditoriums });
+    } else {
+      const auditoriums = inMemoryAuditoriums.filter(a => a.status === 'active').map(a => {
+        const aud = { ...a };
+        // No manager in inMemory, so skip populate
+        return aud;
+      });
+      res.json({ success: true, data: auditoriums });
+    }
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
