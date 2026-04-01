@@ -2,6 +2,8 @@
 
 A full-stack web application for managing auditorium bookings, events, and resources at Anurag University.
 
+<!-- Updated for deployment -->
+
 ## 🏗️ Tech Stack
 
 | Layer | Technology |
