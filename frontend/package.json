@@ -15,20 +15,22 @@
     "recharts": "^2.8.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "lint": "eslint src --ext .js,.jsx"
+    "start": "vite",
+    "build": "vite build",
+    "lint": "eslint src --ext .js,.jsx",
+    "preview": "vite preview"
   },
   "eslintIgnore": [
     "node_modules",
     "build"
   ],
   "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
     "ajv": "^8.18.0",
     "ajv-keywords": "^5.1.0",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.5",
-    "react-scripts": "^5.0.1"
+    "vite": "^8.0.3"
   },
   "browserslist": {
     "production": [
